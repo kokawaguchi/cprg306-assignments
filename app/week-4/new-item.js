@@ -53,7 +53,6 @@ export default function NewItem() {
             className="text-black w-20 m1-1 border-2 border-gray-300
             p-2 rounded-lg font-sans justify-center"
           />
-          <label htmlFor="category">Category</label>
           <select
             id="category"
             value={category}
