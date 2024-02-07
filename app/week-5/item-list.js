@@ -7,41 +7,34 @@ import itemsData from "./items.json";
 export default function ItemList({ items }) {
   const [sortBy, setSortBy] = useState("name");
 
-  const sortItemsByName = (items) => {
-    return items.sort((a, b) => a.name.localeCompare(b.name));
-  };
-
-  const sortItemsByCategory = (items) => {
-    return items.sort((a, b) => a.category.localeCompare(b.category));
-  };
-
-  let sortedItems = [];
-  if (sortBy === "name") {
-    sortedItems = sortItemsByName(itemsData);
-  }
-  if (sortBy === "category") {
-    sortedItems = sortItemsByCategory(itemsData);
-  }
+  const sortItems = itemsData.sort((a, b) => {
+    if (sortBy === "name") {
+      return a.name.localeCompare(b.name);
+    }
+    if (sortBy === "category") {
+      return a.category.localeCompare(b.category);
+    }
+  });
 
   return (
     <div>
       <p>
         Sort by:
         <button
-          className={sortBy === "name" ? "bg-orange-500" : "bg-orange-900"}
           onClick={() => setSortBy("name")}
+          className={`bg-${sortBy === "name" ? "blue-500" : "blue-900"} p-1 m-2 w-20 text-black rounded-md`}
         >
           Name
         </button>
         <button
-          className={sortBy === "category" ? "bg-orange-500" : "bg-orange-900"}
-          onClick={() => setSortBy("category")}
+           onClick={() => setSortBy("category")}
+           className={`bg-${sortBy === "category" ? "blue-500" : "blue-900"} p-1 m-2 w-20 text-black rounded-md`}
         >
           Category
         </button>
       </p>
       <ul>
-        {sortedItems.map((item) => (
+        {sortItems.map((item) => (
           <li key={item.id}>
             <Item
               name={item.name}
