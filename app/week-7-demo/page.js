@@ -2,18 +2,22 @@
 
 import { useState, useEffect } from "react";
 
+// when you call async function, it returns a promise
+// the promise requires await to resolve
 const getRandomDog = async () => {
   const response = await fetch("https://dog.ceo/api/breeds/image/random");
   const data = await response.json();
   return data.message;
 };
 
+// to create a dropdown of dog breeds, we need to fetch the list of breeds
 const getDogBreeds = async () => {
   const response = await fetch("https://dog.ceo/api/breeds/list/all");
   const data = await response.json();
   return Object.keys(data.message); // Object.keys returns an array of the object's keys
 };
 
+//
 const getBreedImage = async (breed) => {
   const response = await fetch(
     `https://dog.ceo/api/breed/${breed}/images/random`
@@ -44,6 +48,7 @@ export default function Page() {
     setDogUrl(breedImage);
   };
 
+  //useEffect is passed a function(s) and an array
   useEffect(() => {
     loadRandomDog();
     loadBreeds();
@@ -54,6 +59,7 @@ export default function Page() {
     loadBreedImage(selectedBreed);
   }, [selectedBreed]);
 
+  // select = dropdown list in html
   return (
     <main>
       <h1>Week 7</h1>
