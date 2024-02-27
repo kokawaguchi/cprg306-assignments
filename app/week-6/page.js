@@ -15,12 +15,12 @@ export default function Page() {
   }
 
   return (
-    <main className="p-2 m-2 w-3/4">
+    <main className="p-2 m-1 w-7/8">
       <h2 className="text-3xl font-bold">Shopping List</h2>
 
       <div className="max-w-sm w-full">
         <h3 className="text-xl font-bold p-1">Add New Item</h3>
-        <div className="mb-2" w-full>
+        <div className="mb-5 w-3/5">
           <NewItem onAddItem={handleAddItem} />
         </div>
         <div className="flex justify-between">
