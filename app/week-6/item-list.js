@@ -36,7 +36,7 @@ export default function ItemList({ items }) {
   };
 
   return (
-    <div>
+    <div className="p-2 m-2">
       <p className="flex items-center">
         <button
           onClick={() => setSortBy("name")}
