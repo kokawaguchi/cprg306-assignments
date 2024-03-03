@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+.bg-blue:hover {
+  background-color: blue;
+}
+.bg-yellow:hover {
+  background-color: yellow;
+}
+
+

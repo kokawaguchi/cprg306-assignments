@@ -12,36 +12,24 @@
 //   );
 // }
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function Item({ id, name, quantity, category, onSelect }) {
-  const [selectedItemId, setSelectedItemId] = useState(null);
-  const [prevSelectedItemId, setPrevSelectedItemId] = useState(null);
+//TODO - when the div is clicked, change background colour to yellow,
+// prev background colour should revert to blue
 
-  const handleClick = (event) => {
-    const clickedItemId = event.currentTarget.id;
-    setSelectedItemId(selectedItemId === clickedItemId ? null : clickedItemId);
+export default function Item({ name, quantity, category, onSelect }) {
+  const [divColour, setDivColour] = useState("bg-blue-900");
+
+  const handleClick = () => {
+    setDivColour("yellow");
     onSelect && onSelect();
   };
 
-  useEffect(() => {
-    // Revert the previously selected item's background color to green
-    if (prevSelectedItemId !== null && prevSelectedItemId !== selectedItemId) {
-      const prevSelectedElement = document.getElementById(prevSelectedItemId);
-      if (prevSelectedElement) {
-        prevSelectedElement.style.backgroundColor = "green";
-      }
-    }
-    // Update the previously selected item ID
-    setPrevSelectedItemId(selectedItemId);
-  }, [selectedItemId]);
-
   return (
     <div
-      id={id}
-      className="p-2 rounded-md mb-2 max-w-sm w-full"
-      style={{ backgroundColor: selectedItemId === id ? "red" : "green" }}
       onClick={handleClick}
+      className={`bg-${divColour} hover:bg-blue-100 p-2 rounded-md mb-2 max-w-sm w-full bg-blue-900`}
+      style={{ transition: "background-color 0.3s" }} // Add transition for smooth effect
     >
       <h3 className="text-xl font-bold">{name}</h3>
       <p className="text-sm">

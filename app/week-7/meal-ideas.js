@@ -26,7 +26,7 @@ export default function MealIdeas({ ingredient }) {
     <div>
       <h2 className="text-2xl ml-2 font-bold w-full pt-4">Meal Ideas</h2>
       <div className="">
-        <div>
+        <div className="">
           {meals ? (
             <p>Here are some meal ideas using {ingredient}</p>
           ) : (
@@ -34,9 +34,14 @@ export default function MealIdeas({ ingredient }) {
           )}
         </div>
         {meals ? (
-          <ul>
+          <ul className="">
             {meals.map((ingredient) => (
-              <li key={ingredient.idMeal}>{ingredient.strMeal}</li>
+              <li
+                className="bg-blue-100 rounded-md m-1 h-15 text-justify p-2 text-cyan-900"
+                key={ingredient.idMeal}
+              >
+                {ingredient.strMeal}
+              </li>
             ))}
           </ul>
         ) : (
