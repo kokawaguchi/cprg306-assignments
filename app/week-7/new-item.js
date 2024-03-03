@@ -28,7 +28,8 @@ export default function NewItem({ onAddItem }) {
   }
 
   return (
-    <main className="">
+    <main>
+      <h2 className="text-2xl ml-2 font-bold w-full pt-4">Add New Item</h2>
       <form
         onSubmit={handleSubmit}
         className="p-2 m-4 bg-slate-900 text-black max-w-sm w-full"

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Item from "./item.js";
 
-export default function ItemList({ items }) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState("name");
 
   const sortItems = () => {
@@ -63,6 +63,7 @@ export default function ItemList({ items }) {
           Group Category
         </button>
       </p>
+
       <ul>
         {sortBy === "groupCategory"
           ? sortItems().map((group) => (
@@ -72,9 +73,11 @@ export default function ItemList({ items }) {
                   {group.items.map((item) => (
                     <li key={item.id}>
                       <Item
+                        id={item.id}
                         name={item.name}
                         quantity={item.quantity}
                         category={item.category}
+                        onSelect={() => onItemSelect(item)}
                       />
                     </li>
                   ))}
@@ -84,9 +87,11 @@ export default function ItemList({ items }) {
           : sortItems().map((item) => (
               <li key={item.id}>
                 <Item
+                  id={item.id}
                   name={item.name}
                   quantity={item.quantity}
                   category={item.category}
+                  onSelect={() => onItemSelect(item)}
                 />
               </li>
             ))}
@@ -94,7 +99,3 @@ export default function ItemList({ items }) {
     </div>
   );
 }
-
-// map function - returns a new array with the same length as the original array,
-// but with each element transformed by the callback function
-// here, it loops through each item and displays the name, quantity, and category in a list

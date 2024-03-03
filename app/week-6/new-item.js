@@ -31,7 +31,7 @@ export default function NewItem({ onAddItem }) {
     <main className="">
       <form
         onSubmit={handleSubmit}
-        className="p-2 m-4 bg-slate-900 text-black max-w-sm w-full"
+        className="p-2 m-1 ml-4 bg-slate-900 text-black max-w-sm w-full"
       >
         <div className="mb-2">
           <label htmlFor="name"></label>
