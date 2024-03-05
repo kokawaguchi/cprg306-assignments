@@ -20,9 +20,10 @@ export default function Page() {
     if (item.name.includes(",")) {
       cleanItem = item.name.replace(/,.*/, "");
     } else {
-      // Regular expression to match emojis
-      const regexEmoji = /[\u{1F300}-\u{1F9FF}]/gu;
-      cleanItem = item.name.replace(regexEmoji, "");
+      cleanItem = item.name.replace(
+        /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+        ""
+      );
     }
     if (cleanItem) {
       setSelectedItemName(cleanItem);

@@ -85,6 +85,3 @@ export default function NewItem({ onAddItem }) {
     </main>
   );
 }
-
-//  Demo code:
-// https://github.com/warsylewicz/webdev2-demos/blob/master/app/week-4/dog-form.js

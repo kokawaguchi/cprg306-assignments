@@ -10,34 +10,45 @@ const fetchMealIdeas = async (ingredient) => {
   return data.meals;
 };
 
-export default function MealIdeas({ ingredient }) {
-  const [meals, setMeals] = useState([]);
+export default function MealIdeas({ ingredient, onSelect }) {
+  const [meals, setMeals] = useState(null);
 
   const loadMealIdeas = async (ingredient) => {
     const mealIdeas = await fetchMealIdeas(ingredient);
     setMeals(mealIdeas);
   };
 
+  const handleClick = () => {
+    setDivColour("yellow");
+    onSelect && onSelect();
+  };
+
   useEffect(() => {
-    loadMealIdeas(ingredient);
+    if (ingredient) {
+      loadMealIdeas(ingredient);
+    }
   }, [ingredient]);
 
   return (
     <div>
-      <h2 className="text-2xl ml-2 font-bold w-full pt-4">Meal Ideas</h2>
-      <div className="">
-        <div className="">
-          {meals ? (
-            <p>Here are some meal ideas using {ingredient}</p>
+      <h2 className="text-2xl font-bold w-full pt-4">Meal Ideas</h2>
+      <div>
+        <div>
+          {ingredient ? (
+            meals !== null ? (
+              <p>Here are some meal ideas using {ingredient}:</p>
+            ) : (
+              <p>No meal ideas found for {ingredient}</p>
+            )
           ) : (
-            <p>No meal ideas found for {ingredient}</p>
+            <p>Select an item to see meal ideas</p>
           )}
         </div>
         {meals ? (
-          <ul className="">
+          <ul>
             {meals.map((ingredient) => (
               <li
-                className="bg-blue-100 rounded-md m-1 h-15 text-justify p-2 text-cyan-900"
+                className="bg-blue-100 rounded-md m-1 h-15 text-justify p-2 text-cyan-900 hover:bg-pink-100"
                 key={ingredient.idMeal}
               >
                 {ingredient.strMeal}
