@@ -16,7 +16,7 @@ export default function NewItem({ onAddItem }) {
     const newItem = { id: newID, name, quantity, category };
     onAddItem(newItem);
 
-    alert(`Added item: ${name}, quantity: ${quantity}, category: ${category}`);
+    //alert(`Added item: ${name}, quantity: ${quantity}, category: ${category}`);
 
     setName("");
     setQuantity(1);
