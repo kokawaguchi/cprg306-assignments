@@ -6,7 +6,13 @@ import Link from "next/link";
 export default function Page() {
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  console.log(user);
+  function handleSignIn() {
+    gitHubSignIn();
+  }
+
+  function handleSignOut() {
+    firebaseSignOut();
+  }
 
   return (
     <main className="h-screen flex items-center justify-center">
@@ -20,7 +26,7 @@ export default function Page() {
               </a>
             </div>
             <button
-              onClick={firebaseSignOut}
+              onClick={handleSignOut}
               className="text-cyan-900 hover:text-pink-100 "
             >
               Sign Out
@@ -29,7 +35,7 @@ export default function Page() {
         ) : (
           <div>
             <button
-              onClick={gitHubSignIn}
+              onClick={handleSignIn}
               className="text-cyan-900 hover:text-pink-100"
             >
               Sign In with GitHub

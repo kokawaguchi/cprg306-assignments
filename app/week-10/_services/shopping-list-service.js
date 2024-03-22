@@ -1,34 +1,27 @@
+//services holds the functions for all the db tasks
+
 import { db } from "../_utils/firebase";
-import { collection, getDocs, addDoc, query } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
-export async function getItems(userId) {
+export const getItems = async (userId) => {
   try {
-    const itemsRef = db.collection("users").doc(userId).collection("items");
-    const snapshot = await itemsRef.get();
-
     const items = [];
-    snapshot.forEach((doc) => {
-      items.push({
-        id: doc.id,
-        data: doc.data(),
-      });
+    const itemsCollectionRef = collection(db, "users", userId, "items");
+    const itemsSnapshot = await getDocs(itemsCollectionRef);
+
+    itemsSnapshot.forEach((doc) => {
+      items.push({ id: doc.id, ...doc.data() });
     });
 
     return items;
   } catch (error) {
-    console.error("Error fetching items:", error);
-    throw error; // Rethrow the error to handle it where the function is called
+    console.error("Error getting items: ", error);
+    return [];
   }
-}
+};
 
-export async function addItem(userId, item) {
-  try {
-    const itemsRef = db.collection("users").doc(userId).collection("items");
-    const newItemRef = await itemsRef.add(item);
-
-    return newItemRef.id;
-  } catch (error) {
-    console.error("Error adding item:", error);
-    throw error; // Rethrow the error to handle it where the function is called
-  }
-}
+export const addItem = async (userId, item) => {
+  const itemsCollectionRef = collection(db, `users/${userId}/items`);
+  const docRef = await addDoc(itemsCollectionRef, item);
+  return docRef.id;
+};

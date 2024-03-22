@@ -2,28 +2,25 @@
 
 import ItemList from "./item-list";
 import NewItem from "./new-item";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MealIdeas from "./meal-ideas";
 import { useUserAuth } from "../_utils/auth-context";
 import { getItems, addItem } from "../_services/shopping-list-service";
-import { useEffect } from "react";
 
 export default function Page() {
-  const [items, setItems] = useState(getItems);
+  const [items, setItems] = useState([]);
   const [selectedItemName, setSelectedItemName] = useState("");
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const { user } = useUserAuth();
 
-  useEffect(() => {
-    const loadItems = async () => {
-      const userItems = await getItems(user.uid);
-      setItems(userItems);
-    };
-    loadItems();
-  }, [user.uid]);
+  async function loadItems() {
+    const userItems = await getItems(user.uid);
+    setItems(userItems);
+  }
 
   // event handler to add an item to the list
-  function handleAddItem(item) {
-    setItems([...items, item]);
+  async function handleAddItem(item) {
+    const id = await addItem(user.uid, item);
+    setItems((prevItems) => [...prevItems, { id, ...item }]);
   }
 
   const handleItemSelect = (item) => {
@@ -42,6 +39,12 @@ export default function Page() {
       console.error("Error: Unable to extract meal name from selected item.");
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      loadItems();
+    }
+  }, [user]);
 
   return (
     <main>
